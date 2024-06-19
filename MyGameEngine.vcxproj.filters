@@ -26,6 +26,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Dice.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Direct3D.h">
@@ -38,6 +41,9 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Dice.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
