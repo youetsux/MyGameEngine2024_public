@@ -133,8 +133,9 @@ HRESULT Direct3D::InitShader()
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },	//位置
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, sizeof(DirectX::XMVECTOR) , D3D11_INPUT_PER_VERTEX_DATA, 0 },//UV座標
+		{ "NORMAL",	0, DXGI_FORMAT_R32G32B32_FLOAT, 0, sizeof(DirectX::XMVECTOR) * 2 ,	D3D11_INPUT_PER_VERTEX_DATA, 0 },//法線
 	};
-	hr = pDevice->CreateInputLayout(layout, 2, pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), &pVertexLayout);
+	hr = pDevice->CreateInputLayout(layout, 3, pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), &pVertexLayout);
 	
 	pCompileVS->Release();
 	if (FAILED(hr))
@@ -157,7 +158,7 @@ HRESULT Direct3D::InitShader()
 
 	//ラスタライザ作成
 	D3D11_RASTERIZER_DESC rdc = {};
-	rdc.CullMode = D3D11_CULL_NONE;  //多角形の裏側は描画しない（カリング）
+	rdc.CullMode = D3D11_CULL_BACK;  //多角形の裏側は描画しない（カリング）
 	rdc.FillMode = D3D11_FILL_SOLID; //多角形の内部を塗りつぶす
 	rdc.FrontCounterClockwise = FALSE; //反時計回りを表にするかどうか（がfalseなので時計回りが表）
 	hr = pDevice->CreateRasterizerState(&rdc, &pRasterizerState);

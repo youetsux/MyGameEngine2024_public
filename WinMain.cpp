@@ -4,6 +4,7 @@
 
 #include "Quad.h"
 #include "Camera.h"
+#include "Dice.h"
 
 //リンカ
 #pragma comment(lib, "d3d11.lib")
@@ -73,9 +74,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	//Camera::Initialize({5,10,-10}, {0,0,0});
 	Camera::Initialize();
 
-	Quad* q;
-	q = new Quad();
-	hr = q->Initialize();
+	//Quad* q;
+	//q = new Quad();
+	Dice* d;
+	d = new Dice();
+
+	//hr = q->Initialize();
+	hr = d->Initialize();
+
 	if (FAILED(hr))
 	{
 		MessageBox(NULL, L"Quadの初期化に失敗", NULL, MB_OK);
@@ -105,11 +111,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 			//1度ずつ回転するための変数
 			static float rot = 0;
-			rot += 0.01;
+			rot += 0.001;
 			//radian -> digree XMConvertToRadians
 			//digree -> radian XMConvertToDegrees
 			
-			XMMATRIX rmat = XMMatrixRotationY(rot);
+			XMMATRIX rmat = XMMatrixRotationX(rot);
 
 			static float factor = 0.0;
 			factor += 0.001;
@@ -121,8 +127,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//XMMATRIX mat = smat * rmat * tmat;
 			//単位行列は、数字の１と同じ
 			XMMATRIX mat = XMMatrixIdentity();//Identityは単位行列って意味
-			mat = rmat*tmat;
-			q->Draw(mat);
+			mat = rmat;
+			//q->Draw(mat);
+			d->Draw(mat);
 
 			//描画処理
 			Direct3D::EndDraw();
@@ -130,7 +137,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		
 	}
 
-	SAFE_DELETE(q);
+	//SAFE_DELETE(q);
 	Direct3D::Release();
 
 	return 0;
